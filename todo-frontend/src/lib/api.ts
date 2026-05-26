@@ -1,4 +1,7 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+const API_URL = process.env.NEXT_PUBLIC_API_URL ||
+  (process.env.NODE_ENV === 'production'
+    ? 'https://todo-list-production-3b1b.up.railway.app'
+    : 'http://localhost:8000')
 
 export async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   const hasBody = options?.body != null
