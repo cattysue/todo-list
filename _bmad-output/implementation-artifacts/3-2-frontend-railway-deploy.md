@@ -1,6 +1,6 @@
 # Story 3.2: Frontend Railway 배포 설정 및 CORS 업데이트
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -23,24 +23,24 @@ So that 공개 URL로 앱 전체 기능이 동작한다.
   - [x] 1.1: `todo-frontend/nixpacks.toml` 생성 — Node.js 20, npm install, npm run build, npm run start 명시 ✓
   - [x] 1.2: 파일 인코딩 확인 — UTF-8 without BOM (첫 3바이트: 91 112 104 = `[ph`) ✓
 
-- [ ] Task 2: Railway 대시보드 — 프론트엔드 서비스 설정 (AC: #1~#2) — 사용자 직접 수행
-  - [ ] 2.1: Railway 대시보드 → "New Service" → "GitHub Repo" → todo-list 저장소 선택
-  - [ ] 2.2: 서비스 Settings → Source → Root Directory: `todo-frontend` 설정
-  - [ ] 2.3: Variables 탭 → `NEXT_PUBLIC_API_URL` = 백엔드 Railway 공개 URL (`https://xxx.up.railway.app`) 추가
-  - [ ] 2.4: 배포 완료 후 프론트엔드 공개 URL 확인 (`https://yyy.up.railway.app`)
+- [x] Task 2: Railway 대시보드 — 프론트엔드 서비스 설정 (AC: #1~#2) — 사용자 직접 수행
+  - [x] 2.1: Railway 대시보드 → "New Service" → "GitHub Repo" → todo-list 저장소 선택 ✓
+  - [x] 2.2: 서비스 Settings → Source → Root Directory: `todo-frontend` 설정 ✓
+  - [x] 2.3: Variables 탭 → `NEXT_PUBLIC_API_URL` = 백엔드 Railway 공개 URL 추가 ✓
+  - [x] 2.4: 배포 완료 후 프론트엔드 공개 URL 확인 → https://angelic-wonder-production-3fec.up.railway.app ✓
 
-- [ ] Task 3: CORS 업데이트 후 백엔드 재배포 (AC: #4) — Task 2 완료 후 진행
-  - [ ] 3.1: `todo-backend/main.py`의 `allow_origins`에 프론트엔드 Railway URL 추가
-  - [ ] 3.2: 변경사항 커밋·푸시 → Railway 백엔드 자동 재배포
+- [x] Task 3: CORS 업데이트 후 백엔드 재배포 (AC: #4) — Task 2 완료 후 진행
+  - [x] 3.1: `todo-backend/main.py`의 `allow_origins`에 https://angelic-wonder-production-3fec.up.railway.app 추가 ✓
+  - [x] 3.2: 변경사항 커밋·푸시 (4944989) → Railway 백엔드 자동 재배포 ✓
 
-- [ ] Task 4: 통합 검증 (AC: #5~#6) — 사용자 브라우저 직접 확인
-  - [ ] 4.1: 프론트엔드 공개 URL 접속 → 할일 목록 표시 확인
-  - [ ] 4.2: 할일 추가 → 목록 즉시 반영 확인
-  - [ ] 4.3: 완료 토글 → 취소선 표시 확인
-  - [ ] 4.4: 삭제 → 목록에서 제거 확인
-  - [ ] 4.5: 수정 → 변경 내용 반영 확인
-  - [ ] 4.6: 필터(전체/완료/미완료) → 필터링 동작 확인
-  - [ ] 4.7: 브라우저 개발자도구 Network 탭 → CORS 오류 없음 확인
+- [x] Task 4: 통합 검증 (AC: #5~#6) — 사용자 브라우저 직접 확인
+  - [x] 4.1: 프론트엔드 공개 URL 접속 → 할일 목록 표시 확인 ✓
+  - [x] 4.2: 할일 추가 → 목록 즉시 반영 확인 ✓
+  - [x] 4.3: 완료 토글 → 취소선 표시 확인 ✓
+  - [x] 4.4: 삭제 → 목록에서 제거 확인 ✓
+  - [x] 4.5: 수정 → 변경 내용 반영 확인 ✓
+  - [x] 4.6: 필터(전체/완료/미완료) → 필터링 동작 확인 ✓
+  - [x] 4.7: 브라우저 개발자도구 Network 탭 → CORS 오류 없음 확인 ✓
 
 ## Dev Notes
 
@@ -176,19 +176,28 @@ claude-sonnet-4-6
 
 ### Completion Notes List
 
-- `todo-frontend/nixpacks.toml`: Node.js 20, npm install/build/start 명시. UTF-8 without BOM으로 저장. Railway PORT 자동 인식 → AC#3 만족
-- Task 2 (2.1~2.4): Railway 대시보드 작업 — 사용자 직접 수행. Dev Notes에 상세 가이드 포함.
-- Task 3 (3.1~3.2): 프론트엔드 URL 확보 후 main.py CORS 업데이트 및 재배포 — 사용자 직접 수행.
-- Task 4 (4.1~4.7): 배포 후 브라우저 통합 검증 — 사용자 직접 수행.
-- AC#1, #2, #4, #5, #6: Railway 대시보드 + 브라우저 검증 후 만족 여부 확인
+- `todo-frontend/nixpacks.toml`: Node.js 20, npm install/build/start 명시. UTF-8 without BOM 저장. → AC#3 만족
+- `todo-backend/main.py`: allow_origins에 https://angelic-wonder-production-3fec.up.railway.app 추가. localhost:3000도 유지. → AC#4 만족
+- `todo-frontend/next.config.ts`: env 블록에 NEXT_PUBLIC_API_URL 명시적 주입 추가 (Railway 빌드 env 우회 목적)
+- `todo-frontend/src/lib/api.ts`: NODE_ENV 기반 기본 URL 분기 — production 빌드 시 백엔드 Railway URL 사용
+- `todo-frontend/.env.production`: NEXT_PUBLIC_API_URL 하드코딩 (Railway 빌드 캐시 우회)
+- `todo-frontend/.gitignore`: .env.production 예외 추가 (`!.env.production`)
+- 트러블슈팅 1 — Railway가 NEXT_PUBLIC_API_URL을 빌드 시 주입하지 못하는 문제: next.config.ts → .env.production → api.ts NODE_ENV 분기 순으로 해결
+- 트러블슈팅 2 — 백엔드 500 에러 원인: Supabase 직접 연결(port 5432)이 IPv6 주소로 해석되어 Railway 컨테이너에서 unreachable. Supabase 연결 풀러(IPv4) URL로 DATABASE_URL 교체하여 해결
+- AC#1~#6 전체 만족. 브라우저에서 할일 추가·완료·삭제·수정·필터 모두 정상 동작 확인
 
 ### File List
 
 - todo-frontend/nixpacks.toml (NEW)
-- todo-backend/main.py (UPDATE — Task 3에서 CORS allow_origins 확장)
+- todo-backend/main.py (UPDATE — CORS allow_origins에 프론트엔드 Railway URL 추가)
+- todo-frontend/next.config.ts (UPDATE — env 블록 NEXT_PUBLIC_API_URL 명시적 주입)
+- todo-frontend/src/lib/api.ts (UPDATE — NODE_ENV 기반 기본 URL 분기)
+- todo-frontend/.env.production (NEW — NEXT_PUBLIC_API_URL 프로덕션 값)
+- todo-frontend/.gitignore (UPDATE — .env.production 예외 추가)
 
 ## Change Log
 
 | Date | Version | Description |
 |------|---------|-------------|
 | 2026-05-27 | 1.0 | 스토리 생성 — nixpacks.toml, CORS 업데이트, Railway 대시보드 가이드 포함 |
+| 2026-05-27 | 1.1 | 구현 완료 — CORS 업데이트, NEXT_PUBLIC_API_URL 빌드 주입 문제 해결, Supabase IPv6→풀러 URL 전환으로 DB 연결 성공 |
