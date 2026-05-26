@@ -1,0 +1,9 @@
+# Claude Code 설정 (로컬 전용)
+.claude/
+
+# BMAD 개인 설정
+_bmad/custom/*.user.toml
+
+# OS
+.DS_Store
+Thumbs.db

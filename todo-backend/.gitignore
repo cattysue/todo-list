@@ -1,0 +1,27 @@
+# 가상환경
+venv/
+.venv/
+env/
+
+# Python 캐시
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 환경 변수 (민감정보)
+.env
+!.env.example
+
+# 빌드 산출물
+*.egg-info/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+
+# 테스트 커버리지
+.coverage
+htmlcov/
