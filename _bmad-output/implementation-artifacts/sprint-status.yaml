@@ -1,5 +1,5 @@
-# generated: 2026-05-26
-# last_updated: 2026-05-26
+﻿# generated: 2026-05-26
+# last_updated: 2026-05-27
 # project: todo-list
 # project_key: NOKEY
 # tracking_system: file-system
@@ -13,8 +13,8 @@
 #   - done: All stories in epic completed
 #
 # Epic Status Transitions:
-#   - backlog → in-progress: Automatically when first story is created (via create-story)
-#   - in-progress → done: Manually when all stories reach 'done' status
+#   - backlog ??in-progress: Automatically when first story is created (via create-story)
+#   - in-progress ??done: Manually when all stories reach 'done' status
 #
 # Story Status:
 #   - backlog: Story only exists in epic file
@@ -35,21 +35,21 @@
 # - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
 
 generated: 2026-05-26
-last_updated: 2026-05-26
+last_updated: 2026-05-27
 project: todo-list
 project_key: NOKEY
 tracking_system: file-system
 story_location: _bmad-output/implementation-artifacts
 
 development_status:
-  # Epic 1: 프로젝트 기반 설정
+  # Epic 1: ?꾨줈?앺듃 湲곕컲 ?ㅼ젙
   epic-1: in-progress
   1-1-frontend-init: review
   1-2-backend-init-cors: review
   1-3-supabase-db-setup: done
   epic-1-retrospective: optional
 
-  # Epic 2: 할일 전체 관리 기능
+  # Epic 2: ?좎씪 ?꾩껜 愿由?湲곕뒫
   epic-2: in-progress
   2-1-backend-todo-api: review
   2-2-todo-list-view: review
@@ -59,8 +59,9 @@ development_status:
   2-6-status-filter: review
   epic-2-retrospective: optional
 
-  # Epic 3: Railway 배포
+  # Epic 3: Railway 諛고룷
   epic-3: in-progress
   3-1-backend-railway-deploy: review
-  3-2-frontend-railway-deploy: backlog
+  3-2-frontend-railway-deploy: ready-for-dev
   epic-3-retrospective: optional
+
